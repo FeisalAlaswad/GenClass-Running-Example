@@ -310,7 +310,9 @@ Return the generated PlantUML code
    - Missing: The `workingHours` attribute in Attendance is extra.  
    - Completeness score:  
      ```
-     Completeness = \frac{\text{Correct Elements}}{\text{Total Expected Elements}} = \frac{18}{20} = 0.9.
+     $$
+\text{Completeness} = \frac{\text{Correct Elements}}{\text{Total Expected Elements}} = \frac{18}{20} = 0.9
+$$
      ```
 
 2. **Correctness**:
