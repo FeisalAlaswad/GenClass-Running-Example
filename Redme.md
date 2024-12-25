@@ -109,11 +109,11 @@ Root: Diagram
 
 - **Input Positional Encoding**: Each token in the software requirements is assigned a position. Example:
   ```
-  "The system should allow HR to register" -> [1, 2, 3, 4, 5].
+  "The system should allow HR to register" -> [0.841, -0.416, 0.141, -0.654, -0.988].
   ```
 - **Output Byte-Pair Encoding (BPE)**: Processed to subwords. Example:
 "The system should allow the HR department to register new employees with details such as Employee ID, Name, Position, Department, and Contact Information."
-
+```
 BPE Process:
 
 1. **Initial Step**: Start with individual characters as the initial vocabulary.
@@ -122,7 +122,7 @@ BPE Process:
 
 ### Example of Tokenized Output after BPE:
 
-```json
+json
 {
     "tokens": {
         "The": 1001,
