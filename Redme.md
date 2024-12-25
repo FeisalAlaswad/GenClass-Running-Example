@@ -310,7 +310,7 @@ class Employee {
     String Position
     String Department
     String ContactInfo
-    int workingHour
+    int workingHours
 }
 
 class Attendance {
