@@ -27,7 +27,7 @@ Extracted entities:
 ---
 
 ## Step 2: Syntax Tree Representation of the Expected PlantUML
-
+![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/example.png)
 ### Expected PlantUML Class Diagram:
 ```plantuml
 @startuml
@@ -300,17 +300,17 @@ Return the generated PlantUML code
 
  ```
 
-![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/example.png)
+![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/example2.png)
 
  ```
 @startuml
-' Define the classes with their attributes
 class Employee {
     String EmployeeID
     String Name
     String Position
     String Department
     String ContactInfo
+    int workingHour
 }
 
 class Attendance {
@@ -331,7 +331,6 @@ class Notification {
     String Message
 }
 
-' Define the relationships between the classes
 Employee "1" - "*" Attendance
 Employee "1" - "*" LeaveRequest
 LeaveRequest "1" - "*" Notification
