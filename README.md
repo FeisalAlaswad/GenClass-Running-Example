@@ -1,4 +1,4 @@
-# Detailed Example for Converting Software Requirements to PlantUML Class Diagram
+# A Detailed Example of Converting Software Requirements to a PlantUML Class Diagram Using GEnClass
 
 ## Software Requirements
 
