@@ -302,6 +302,43 @@ Return the generated PlantUML code
 
 ![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/example.png)
 
+ ```
+@startuml
+' Define the classes with their attributes
+class Employee {
+    String EmployeeID
+    String Name
+    String Position
+    String Department
+    String ContactInfo
+}
+
+class Attendance {
+    Timestamp MarkedTime
+}
+
+class Report {
+    Date StartDate
+    Date EndDate
+}
+
+class LeaveRequest {
+    Boolean Approved
+    String Reason
+}
+
+class Notification {
+    String Message
+}
+
+' Define the relationships between the classes
+Employee "1" - "*" Attendance
+Employee "1" - "*" LeaveRequest
+LeaveRequest "1" - "*" Notification
+Notification "1" - "*" Employee
+@enduml
+ ```
+
 ---
 
 
