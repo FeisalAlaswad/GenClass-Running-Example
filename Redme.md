@@ -1,7 +1,9 @@
 # Detailed Example for Converting Software Requirements to PlantUML Class Diagram
 
 ## Software Requirements
+
 The attendance system is designed to streamline employee attendance management for organizations. The system should allow the HR department to register new employees with details such as Employee ID, Name, Position, Department, and Contact Information. The system should enable employees to mark their attendance via biometric or web interface, recording timestamps. HR or managers should be able to generate attendance reports for employees for a given time period. Additionally, employees should be able to request leave, and managers should have the ability to approve or reject these requests. The system should also notify employees and managers about pending leave requests, attendance anomalies, and reminders.
+
 ---
 
 ## Step 1: NLP Using SpaCy
@@ -57,10 +59,44 @@ LeaveRequest "1" - "*" Notification
 Notification "1" - "*" Employee
 @enduml
 ```
+### Abstract Syntax Tree Representation of the Given PlantUML Code
+
+```
+Root: Diagram
+├── Class: Employee
+│   ├── Attribute: String EmployeeID
+│   ├── Attribute: String Name
+│   ├── Attribute: String Position
+│   ├── Attribute: String Department
+│   └── Attribute: String ContactInfo
+├── Class: Attendance
+│   └── Attribute: Timestamp MarkedTime
+├── Class: Report
+│   ├── Attribute: Date StartDate
+│   └── Attribute: Date EndDate
+├── Class: LeaveRequest
+│   ├── Attribute: Boolean Approved
+│   └── Attribute: String Reason
+├── Class: Notification
+│   └── Attribute: String Message
+├── Relationship: Association
+│   ├── Source: Employee
+│   └── Target: Attendance
+├── Relationship: Association
+│   ├── Source: Employee
+│   └── Target: LeaveRequest
+├── Relationship: Association
+│   ├── Source: LeaveRequest
+│   └── Target: Notification
+└── Relationship: Association
+    ├── Source: Notification
+    └── Target: Employee
+```
+
 
 ### Converted Syntax Tree Representation:
 1. **Root**: Diagram
-   - **Children**: Classes (Employee, Attendance, Report, LeaveRequest, Notification).  
+     - **Children**: Classes (Employee, Attendance, Report, LeaveRequest, Notification).  
      - **Employee** has attributes: EmployeeID, Name, Position, Department, ContactInfo.  
      - **Attendance** has attributes: MarkedTime.  
      - **Report** has attributes: StartDate, EndDate.  
@@ -76,9 +112,25 @@ Notification "1" - "*" Employee
   "The system should allow HR to register" -> [1, 2, 3, 4, 5].
   ```
 - **Output Byte-Pair Encoding (BPE)**: Processed to subwords. Example:
-  ```
-  'EmployeeID' -> ['Emp', 'loyee', 'ID'].
-  ```
+"The system should allow the HR department to register new employees with details such as Employee ID, Name, Position, Department, and Contact Information."
+
+BPE Process:
+
+1. **Initial Step**: Start with individual characters as the initial vocabulary.
+2. **Merging Pairs**: Repeated character pairs are merged iteratively into new subword units (tokens).
+3. **Stop Condition**: The process stops when no more frequent pairs are found or after a defined number of merges.
+
+### Example of Tokenized Output after BPE:
+
+```json
+{
+    "tokens": [
+        "The", "sys", "tem", "should", "allow", "the", "HR", "depart", "ment", 
+        "to", "reg", "ister", "new", "empl", "oyees", "with", "det", "ails", 
+        "such", "as", "Emp", "loyee", "ID", "Nam", "e", "Pos", "ition", 
+        "Depar", "tment", "and", "Con", "tact", "In", "format", "ion"
+    ]
+}
 
 ---
 
