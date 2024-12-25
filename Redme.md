@@ -124,12 +124,43 @@ BPE Process:
 
 ```json
 {
-    "tokens": [
-        "The", "sys", "tem", "should", "allow", "the", "HR", "depart", "ment", 
-        "to", "reg", "ister", "new", "empl", "oyees", "with", "det", "ails", 
-        "such", "as", "Emp", "loyee", "ID", "Nam", "e", "Pos", "ition", 
-        "Depar", "tment", "and", "Con", "tact", "In", "format", "ion"
-    ]
+    "tokens": {
+        "The": 1001,
+        "sys": 1002,
+        "tem": 1003,
+        "should": 1004,
+        "allow": 1005,
+        "the": 1006,
+        "HR": 1007,
+        "depart": 1008,
+        "ment": 1009,
+        "to": 1010,
+        "reg": 1011,
+        "ister": 1012,
+        "new": 1013,
+        "empl": 1014,
+        "oyees": 1015,
+        "with": 1016,
+        "det": 1017,
+        "ails": 1018,
+        "such": 1019,
+        "as": 1020,
+        "Emp": 1021,
+        "loyee": 1022,
+        "ID": 1023,
+        "Nam": 1024,
+        "e": 1025,
+        "Pos": 1026,
+        "ition": 1027,
+        "Depar": 1028,
+        "tment": 1029,
+        "and": 1030,
+        "Con": 1031,
+        "tact": 1032,
+        "In": 1033,
+        "format": 1034,
+        "ion": 1035
+    }
 }
 ```
 
@@ -179,7 +210,7 @@ From patterns observed in the data:
        Notification has Relationship Association with Employee.
        ```
 
-     - **Generated Text (from model)**:
+     - **Generated Text (from seq2ast model)**:
        ```
        Class Employee has Attribute EmployeeID and Attribute Name and Attribute Position and Attribute Department and Attribute ContactInfo.  
        Class Attendance has Attribute MarkedTime and Attribute workingHours.  
@@ -219,6 +250,53 @@ From patterns observed in the data:
      ```
 
 ---
+ ```
+# Algorithm: Seq2PlantUML
+
+# Initialize classes and relationships data structures
+Initialize classes as empty dictionary
+Initialize relationships as empty list
+
+# Define class pattern and relationship pattern
+Define class pattern as "Class <ClassName> has Attribute <AttributeName>"
+Define relationship pattern as "<Class1> has Relationship Association with <Class2>"
+
+# Process each line in the input text
+For each line in input_text:
+    # If line matches the class pattern
+    If line matches class pattern:
+        Extract class name and attribute from line
+        If class name not in classes:
+            Initialize class in classes with an empty list of attributes
+        Add attribute and its inferred type to the class's list of attributes
+    
+    # If line matches the relationship pattern
+    If line matches relationship pattern:
+        Extract class1 and class2 from line
+        Add the relationship (class1, class2) to the relationships list
+
+# Generate PlantUML code
+Start with "@startuml"
+
+# For each class in classes, generate the class block
+For each class in classes:
+    Add "Class <ClassName> {"
+    For each attribute in class's attributes:
+        Add "<AttributeType> <AttributeName>"
+    Close the class block with "}"
+    
+# For each relationship in relationships, add the relationship to PlantUML
+For each relationship in relationships:
+    Add "<Class1> '1' - '*' <Class2>"
+
+# End the PlantUML code
+End with "@enduml"
+
+# Return or output the final PlantUML code
+Return the generated PlantUML code
+
+ ```
+
 
 ## Step 6: Completeness, Correctness, UML Adherence
 
