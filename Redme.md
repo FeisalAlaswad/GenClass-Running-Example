@@ -1,20 +1,7 @@
 # Detailed Example for Converting Software Requirements to PlantUML Class Diagram
 
 ## Software Requirements
-1. The system should allow the HR department to register new employees with details such as:
-   - Employee ID
-   - Name
-   - Position
-   - Department
-   - Contact Information.
-2. The system should enable employees to mark their attendance via biometric or web interface, recording timestamps.
-3. HR or managers should be able to generate attendance reports for employees for a given time period.
-4. Employees should be able to request leave, and managers should approve or reject leave requests.
-5. The system should notify employees and managers about:
-   - Pending leave requests,
-   - Attendance anomalies,
-   - Reminders.
-
+The attendance system is designed to streamline employee attendance management for organizations. The system should allow the HR department to register new employees with details such as Employee ID, Name, Position, Department, and Contact Information. The system should enable employees to mark their attendance via biometric or web interface, recording timestamps. HR or managers should be able to generate attendance reports for employees for a given time period. Additionally, employees should be able to request leave, and managers should have the ability to approve or reject these requests. The system should also notify employees and managers about pending leave requests, attendance anomalies, and reminders.
 ---
 
 ## Step 1: NLP Using SpaCy
