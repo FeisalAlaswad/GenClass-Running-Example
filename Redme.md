@@ -223,11 +223,11 @@ From patterns observed in the data:
        Notification has Relationship Association with Employee.
        ```
 
-     - **BLEU Calculation**:
-       - **1-gram Precision**: \( \frac{21}{22} = 0.954 \)  
-       - **2-gram Precision**: \( \frac{18}{20} = 0.9 \)  
-       - **3-gram Precision**: \( \frac{15}{18} = 0.833 \)  
-       - **4-gram Precision**: \( \frac{12}{16} = 0.75 \)  
+- **BLEU Calculation**:
+  - **1-gram Precision**: (21 / 22) = 0.954  
+  - **2-gram Precision**: (18 / 20) = 0.9  
+  - **3-gram Precision**: (15 / 18) = 0.833  
+  - **4-gram Precision**: (12 / 16) = 0.75
 
        **BLEU Score**:
        ```
@@ -236,17 +236,18 @@ From patterns observed in the data:
 
    - **Recall**:
      ```
-     Recall = \frac{\text{Correctly Generated Elements}}{\text{Total Elements in Ground Truth}} = \frac{18}{20} = 0.9.
+     Recall = (Correctly Generated Elements) / (Total Elements in Ground Truth) = 18 / 20 = 0.9.
      ```
 
    - **Precision**:
      ```
-     Precision = \frac{\text{Correctly Generated Elements}}{\text{Total Elements Generated}} = \frac{18}{21} = 0.857.
+     Precision = (Correctly Generated Elements) / (Total Elements Generated) = 18 / 21 = 0.857.
      ```
 
    - **Over-Specification**:
      ```
-     Over-Specification = \frac{\text{Extra Elements}}{\text{Total Elements Generated}} \times 100\% = \frac{1}{21} \times 100 = 4.76\%.
+     Over-Specification = (Extra Elements) / (Total Elements Generated) × 100% = 1 / 21 × 100 = 4.76%.
+     
      ```
 
 ---
@@ -310,13 +311,11 @@ Return the generated PlantUML code
    - Missing: The `workingHours` attribute in Attendance is extra.  
    - Completeness score:  
      ```
-     $$
-\text{Completeness} = \frac{\text{Correct Elements}}{\text{Total Expected Elements}} = \frac{18}{20} = 0.9
-$$
+     Completeness = (Correct Elements) / (Total Expected Elements) = 18 / 20 = 0.9.
      ```
 
 2. **Correctness**:
-   - Correct relationships and attributes: \( \text{Score} = 1 \).  
+   - Correct relationships and attributes: Score = 1.
 
 3. **UML Adherence**:  
    - Fully adheres to UML standards (100%).
