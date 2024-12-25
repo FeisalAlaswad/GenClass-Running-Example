@@ -250,6 +250,8 @@ From patterns observed in the data:
      ```
 
 ---
+## Formatting the sequential text to the PlantUML code
+
  ```
 # Algorithm: Seq2PlantUML
 
@@ -296,6 +298,10 @@ End with "@enduml"
 Return the generated PlantUML code
 
  ```
+
+![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/example.png)
+
+---
 
 
 ## Step 6: Completeness, Correctness, UML Adherence
