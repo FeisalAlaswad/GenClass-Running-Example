@@ -93,7 +93,7 @@ Root: Diagram
     └── Target: Employee
 ```
 ### Abstract Syntax Tree Representation of the Given PlantUML Code as Image
-![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/ast.png)
+![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/ast2.png)
 
 ### Converted Syntax Tree Representation:
 1. **Root**: Diagram
