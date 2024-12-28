@@ -1,4 +1,4 @@
-# A Detailed Example of Converting Software Requirements to a PlantUML Class Diagram Using GEnClass
+# A Simplified Example of Using GenClass to Convert Software Requirements into a PlantUML Class Diagram
 
 ## Software Requirements
 
