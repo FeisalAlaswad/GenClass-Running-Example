@@ -1,373 +1,255 @@
-# A Simplified Example of Using GenClass to Convert Software Requirements into a PlantUML Class Diagram
+# 🏛️ Running Example: Library Management System
 
-## Software Requirements
-
-The attendance system is designed to streamline employee attendance management for organizations. The system should allow the HR department to register new employees with details such as Employee ID, Name, Position, Department, and Contact Information. The system should enable employees to mark their attendance via biometric or web interface, recording timestamps. HR or managers should be able to generate attendance reports for employees for a given time period. Additionally, employees should be able to request leave, and managers should have the ability to approve or reject these requests. The system should also notify employees and managers about pending leave requests, attendance anomalies, and reminders.
+This repository demonstrates a complete end-to-end example of generating a UML class diagram from software requirements using a **Library Management System**.
 
 ---
 
-## Step 1: NLP Using SpaCy
+## 📋 System Requirements
 
-### Named Entity Recognition (NER)
-Extracted entities:
 ```
-'HR department', 'employees', 'Employee ID', 'Name', 'Position', 'Department', 'Contact Information',
-'attendance', 'biometric', 'web interface', 'timestamp', 'managers', 'attendance reports',
-'time period', 'leave requests', 'notifications'.
+The system shall allow registered users to search for books by title, author, genre, or ISBN.
+It shall enable users to reserve available books online.
+The system shall automatically notify users via email when a reserved book becomes available. 
+Users shall be able to view their current loans and due dates through their personal dashboard. 
+The system shall restrict users from borrowing more than five books at a time. 
+It shall calculate and display overdue fines based on the return date. 
+Librarians shall be able to add, update, or remove book records in the catalog. 
+The system shall support user authentication with role-based access control for administrators, librarians, and members. 
+It shall generate monthly reports on borrowing trends and overdue items. 
+The system shall back up all data to a secure cloud server daily.
 ```
-
-### Tokenization and Stop Word Removal
-- **Important Tokens after Stop Word Removal (Input Tokens):**
-  ```
-  ['HR', 'register', 'employees', 'Employee ID', 'Name', 'Position', 'Department', 'Contact Information',
-  'attendance', 'mark', 'biometric', 'web', 'timestamp', 'managers', 'reports',
-  'time period', 'leave', 'approve', 'reject', 'notify', 'pending', 'anomalies', 'reminders'].
-  ```
 
 ---
 
-## Step 2: Syntax Tree Representation of the Expected PlantUML
-![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/example.png)
-### Expected PlantUML Class Diagram:
+## ✅ Ground Truth: UML Class Diagram (PlantUML)
+
 ```plantuml
 @startuml
-Class Employee {
-    String EmployeeID
-    String Name
-    String Position
-    String Department
-    String ContactInfo
+class User {
+- id: int
+- name: String
+- email: String
+- role: String
+- maxLoans: int
++ searchBooks(criteria: String): List<Book>
++ reserveBook(book: Book): void
++ viewLoans(): List<Loan>
++ login(username: String, password: String): boolean
++ cancelReservation(bookId: String): void
 }
-Class Attendance {
-    Timestamp MarkedTime
+class Book {
+- isbn: String
+- title: String
+- author: String
+- genre: String
+- available: boolean
+- publicationYear: int
++ isAvailable(): boolean
 }
-Class Report {
-    Date StartDate
-    Date EndDate
+class Loan {
+- id: int
+- userId: int
+- bookId: String
+- loanDate: Date
+- dueDate: Date
+- returnDate: Date
+- fine: float
++ calculateFine(currentDate: Date): float
++ isOverdue(currentDate: Date): boolean
 }
-Class LeaveRequest {
-    Boolean Approved
-    String Reason
+class Librarian {
+- employeeId: int
+- name: String
++ addBook(book: Book): void
++ updateBook(book: Book): void
++ removeBook(book: Book): void
++ viewAllLoans(): List<Loan>
 }
-Class Notification {
-    String Message
+class Admin {
+- adminId: int
+- username: String
++ generateReports(): Report
 }
-
-Employee "1" - "*" Attendance
-Employee "1" - "*" LeaveRequest
-LeaveRequest "1" - "*" Notification
-Notification "1" - "*" Employee
-@enduml
-```
-### Abstract Syntax Tree Representation of the Given PlantUML Code
-
-```
-Root: Diagram
-├── Class: Employee
-│   ├── Attribute: String EmployeeID
-│   ├── Attribute: String Name
-│   ├── Attribute: String Position
-│   ├── Attribute: String Department
-│   └── Attribute: String ContactInfo
-├── Class: Attendance
-│   └── Attribute: Timestamp MarkedTime
-├── Class: Report
-│   ├── Attribute: Date StartDate
-│   └── Attribute: Date EndDate
-├── Class: LeaveRequest
-│   ├── Attribute: Boolean Approved
-│   └── Attribute: String Reason
-├── Class: Notification
-│   └── Attribute: String Message
-├── Relationship: Association
-│   ├── Source: Employee
-│   └── Target: Attendance
-├── Relationship: Association
-│   ├── Source: Employee
-│   └── Target: LeaveRequest
-├── Relationship: Association
-│   ├── Source: LeaveRequest
-│   └── Target: Notification
-└── Relationship: Association
-    ├── Source: Notification
-    └── Target: Employee
-```
-### Abstract Syntax Tree Representation of the Given PlantUML Code as Image
-![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/ast2.png)
-
-### Converted Syntax Tree Representation:
-1. **Root**: Diagram
-     - **Children**: Classes (Employee, Attendance, Report, LeaveRequest, Notification).  
-     - **Employee** has attributes: EmployeeID, Name, Position, Department, ContactInfo.  
-     - **Attendance** has attributes: MarkedTime.  
-     - **Report** has attributes: StartDate, EndDate.  
-     - **LeaveRequest** has attributes: Approved, Reason.  
-     - **Notification** has attributes: Message.  
-
----
-
-## Step 3: Transformer Training (Seq2AST)
-
-- **Input Positional Encoding**: Each token in the software requirements is assigned a position. Example:
-  ```
-  "The system should allow HR to register" -> [0.841, -0.416, 0.141, -0.654, -0.988].
-  ```
-- **Output Byte-Pair Encoding (BPE)**: Processed to subwords. Example:
-"The system should allow the HR department to register new employees with details such as Employee ID, Name, Position, Department, and Contact Information."
-```
-BPE Process:
-
-1. **Initial Step**: Start with individual characters as the initial vocabulary.
-2. **Merging Pairs**: Repeated character pairs are merged iteratively into new subword units (tokens).
-3. **Stop Condition**: The process stops when no more frequent pairs are found or after a defined number of merges.
-
-### Example of Tokenized Output after BPE:
-
-json
-{
-    "tokens": {
-        "The": 1001,
-        "sys": 1002,
-        "tem": 1003,
-        "should": 1004,
-        "allow": 1005,
-        "the": 1006,
-        "HR": 1007,
-        "depart": 1008,
-        "ment": 1009,
-        "to": 1010,
-        "reg": 1011,
-        "ister": 1012,
-        "new": 1013,
-        "empl": 1014,
-        "oyees": 1015,
-        "with": 1016,
-        "det": 1017,
-        "ails": 1018,
-        "such": 1019,
-        "as": 1020,
-        "Emp": 1021,
-        "loyee": 1022,
-        "ID": 1023,
-        "Nam": 1024,
-        "e": 1025,
-        "Pos": 1026,
-        "ition": 1027,
-        "Depar": 1028,
-        "tment": 1029,
-        "and": 1030,
-        "Con": 1031,
-        "tact": 1032,
-        "In": 1033,
-        "format": 1034,
-        "ion": 1035
-    }
-}
-```
-
----
-
-## Step 4: FPGrowth Training
-
-From patterns observed in the data:
-- **Discovered Pattern**: If a class **Employee** exists and there is a class **Attendance**, then an inferred attribute **workingHours** should be added to the class **Attendance** to calculate employee hours.
-
----
-
-## Step 5: Testing Stage
-
-1. **Processed Input**: OOV tokens replaced with `<UNK>`.
-   Example:
-   ```
-   "Employees mark attendance via a web interface."  
-   -> "Employees <UNK> attendance <UNK> <UNK> web interface."
-   ```
-
-2. **Generated Sequential Text**:  
-   ```
-   Class Employee has Attribute EmployeeID and Attribute Name and Attribute Position and Attribute Department and Attribute ContactInfo.  
-   Class Attendance has Attribute MarkedTime and Attribute workingHours.  
-   Class Report has Attribute StartDate and Attribute EndDate.  
-   Class LeaveRequest has Attribute Approved and Attribute Reason.  
-   Class Notification has Attribute Message.  
-   Employee has Relationship Association with Attendance.  
-   Employee has Relationship Association with LeaveRequest.  
-   LeaveRequest has Relationship Association with Notification.  
-   Notification has Relationship Association with Employee.
-   ```
-
-3. **Evaluation Using Metrics**:
-   - **BLEU Score Calculation**:
-     - **Reference Text**:
-       ```
-       Class Employee has Attribute EmployeeID and Attribute Name and Attribute Position and Attribute Department and Attribute ContactInfo.  
-       Class Attendance has Attribute MarkedTime.  
-       Class Report has Attribute StartDate and Attribute EndDate.  
-       Class LeaveRequest has Attribute Approved and Attribute Reason.  
-       Class Notification has Attribute Message.  
-       Employee has Relationship Association with Attendance.  
-       Employee has Relationship Association with LeaveRequest.  
-       LeaveRequest has Relationship Association with Notification.  
-       Notification has Relationship Association with Employee.
-       ```
-
-     - **Generated Text (from seq2ast model)**:
-       ```
-       Class Employee has Attribute EmployeeID and Attribute Name and Attribute Position and Attribute Department and Attribute ContactInfo.  
-       Class Attendance has Attribute MarkedTime and Attribute workingHours.  
-       Class Report has Attribute StartDate and Attribute EndDate.  
-       Class LeaveRequest has Attribute Approved and Attribute Reason.  
-       Class Notification has Attribute Message.  
-       Employee has Relationship Association with Attendance.  
-       Employee has Relationship Association with LeaveRequest.  
-       LeaveRequest has Relationship Association with Notification.  
-       Notification has Relationship Association with Employee.
-       ```
-
-- **BLEU Calculation**:
-  - **1-gram Precision**: (21 / 22) = 0.954  
-  - **2-gram Precision**: (18 / 20) = 0.9  
-  - **3-gram Precision**: (15 / 18) = 0.833  
-  - **4-gram Precision**: (12 / 16) = 0.75
-
-       **BLEU Score**:
-       ```
-       BLEU = BP * exp((log(0.954) + log(0.9) + log(0.833) + log(0.75)) / 4) = 0.85.
-       ```
-
-   - **Recall**:
-     ```
-     Recall = (Correctly Generated Elements) / (Total Elements in Ground Truth) = 18 / 20 = 0.9.
-     ```
-
-   - **Precision**:
-     ```
-     Precision = (Correctly Generated Elements) / (Total Elements Generated) = 18 / 21 = 0.857.
-     ```
-
-   - **Over-Specification**:
-     ```
-     Over-Specification = (Extra Elements) / (Total Elements Generated) × 100% = 1 / 21 × 100 = 4.76%.
-     
-     ```
-
----
-## Formatting the sequential text to the PlantUML code
-
- ```
-# Algorithm: Seq2PlantUML
-
-# Initialize classes and relationships data structures
-Initialize classes as empty dictionary
-Initialize relationships as empty list
-
-# Define class pattern and relationship pattern
-Define class pattern as "Class <ClassName> has Attribute <AttributeName>"
-Define relationship pattern as "<Class1> has Relationship Association with <Class2>"
-
-# Process each line in the input text
-For each line in input_text:
-    # If line matches the class pattern
-    If line matches class pattern:
-        Extract class name and attribute from line
-        If class name not in classes:
-            Initialize class in classes with an empty list of attributes
-        Add attribute and its inferred type to the class's list of attributes
-    
-    # If line matches the relationship pattern
-    If line matches relationship pattern:
-        Extract class1 and class2 from line
-        Add the relationship (class1, class2) to the relationships list
-
-# Generate PlantUML code
-Start with "@startuml"
-
-# For each class in classes, generate the class block
-For each class in classes:
-    Add "Class <ClassName> {"
-    For each attribute in class's attributes:
-        Add "<AttributeType> <AttributeName>"
-    Close the class block with "}"
-    
-# For each relationship in relationships, add the relationship to PlantUML
-For each relationship in relationships:
-    Add "<Class1> '1' - '*' <Class2>"
-
-# End the PlantUML code
-End with "@enduml"
-
-# Return or output the final PlantUML code
-Return the generated PlantUML code
-
- ```
-
-![Example Image](https://github.com/FeisalAlaswad/GenClass-Running-Example/blob/main/example2.png)
-
- ```
-@startuml
-class Employee {
-    String EmployeeID
-    String Name
-    String Position
-    String Department
-    String ContactInfo
-    int workingHours
-}
-
-class Attendance {
-    Timestamp MarkedTime
-}
-
 class Report {
-    Date StartDate
-    Date EndDate
+- reportId: int
+- generatedOn: Date
+- month: String
+- borrowingTrends: String
+- overdueItems: String
++ generate(): void
 }
-
-class LeaveRequest {
-    Boolean Approved
-    String Reason
+class NotificationService {
++ sendEmail(user: User, message: String): void
++ notifyAvailability(book: Book): void
 }
-
-class Notification {
-    String Message
+class AuthenticationService {
++ authenticate(username: String, password: String): boolean
++ resetPassword(email: String): void
 }
-
-Employee "1" - "*" Attendance
-Employee "1" - "*" LeaveRequest
-LeaveRequest "1" - "*" Notification
-Notification "1" - "*" Employee
+class BackupService {
++ backupData(): void
++ scheduleBackup(time: String): void
+}
+User "1" -- "many" Loan
+Book "1" -- "many" Loan
+User "1" -- "*" Book : reserves >
+User --> NotificationService : uses >
+User --> Report : receives >
+User --> AuthenticationService : authenticates >
+Admin --> Report : generates >
+Librarian --> Book : manages >
+Librarian --> User : verifies >
+User <|-- Librarian
+User <|-- Admin
 @enduml
- ```
+```
 
 ---
 
+## 🧹 Preprocessed Requirements
 
-## Step 6: Completeness, Correctness, UML Adherence
-
-1. **Completeness**:
-   - Missing: The `workingHours` attribute in Attendance is extra.  
-   - Completeness score:  
-     ```
-     Completeness = (Correct Elements) / (Total Expected Elements) = 18 / 20 = 0.9.
-     ```
-
-2. **Correctness**:
-   - Correct relationships and attributes: Score = 1.
-
-3. **UML Adherence**:  
-   - Fully adheres to UML standards (100%).
+```
+- Allow users to search books by title, author, genre, or ISBN
+- Enable users to reserve books online
+- Notify users via email when a reserved book is available
+- Users can view loans and due dates from their dashboard
+- Restrict users from borrowing more than five books
+- Calculate and display overdue fines based on return date
+- Librarians can add, update, or remove books from catalog
+- Support authentication with role-based access: administrators, librarians, members
+- Generate monthly reports on borrowing trends and overdue items
+- Back up data to a secure cloud server daily
+```
 
 ---
 
-## Final Results
+## 🧠 Extracted Entities and Relations
 
-| Metric               | Value         |
-|-----------------------|---------------|
-| BLEU Score           | **0.85**      |
-| Recall               | **90%**       |
-| Precision            | **85.7%**     |
-| Over-Specification   | **4.76%**     |
-| Completeness         | **90%**       |
-| Correctness          | **100%**      |
-| UML Adherence        | **100%**      |
+### 🔄 Requirement-wise UML Mapping
 
+```
+R1: Classes added: User, Book
+    Book.attributes = [title, author, genre, isbn]
+    User.methods = [searchBooks()]
+    User -- Book [searches]
+
+R2: No new classes
+    User.methods += [reserveBook(Book)]
+    User -- Book [reserves]
+
+R3: Add class NotificationService
+    NotificationService.methods = [sendEmail(User, String)]
+    User --> NotificationService [receives email]
+
+R4: Add class Loan
+    Loan.attributes = [dueDate]
+    User.methods += [viewLoans()]
+    User.attributes += [dashboard]
+    User -- Loan [has]
+
+R5: No new classes
+    User.attributes += [maxLoans]
+
+R6: Extend Loan class
+    Loan.attributes += [fine, returnDate]
+    Loan.methods += [calculateFine(Date)]
+
+R7: Add class Librarian
+    Librarian.methods = [addBook(Book), updateBook(Book), removeBook(Book)]
+    Librarian -- Book [manages]
+
+R8: Add class AuthenticationService, optional: Admin
+    User.attributes += [role]
+    AuthenticationService.methods = [authenticate(username, password)]
+    AuthenticationService --> User [authenticates]
+    Admin <|-- User, Librarian <|-- User
+
+R9: Add class Report
+    Report.attributes = [month, borrowingTrends, overdueItems]
+    Report -- Loan [summarizes]
+
+R10: Add class BackupService
+    BackupService.methods = [backupData()]
+```
+
+---
+
+### 💡 Suggested Attributes & Methods
+
+```
+User
+  Attributes: id: int, name: String
+  Methods: login(username, password), cancelReservation(bookId)
+  Relations: User --> AuthenticationService, User --> Report
+
+Book
+  Attributes: available: boolean, publicationYear: int
+  Methods: isAvailable()
+
+Loan
+  Attributes: loanDate: Date, bookId: String, userId: int
+  Methods: isOverdue(currentDate)
+
+Librarian
+  Attributes: employeeId: int, name: String
+  Methods: viewAllLoans()
+  Relations: Librarian --> User
+
+NotificationService
+  Methods: notifyAvailability(Book)
+
+AuthenticationService
+  Methods: resetPassword(email)
+
+Report
+  Attributes: reportId: int, generatedOn: Date
+  Methods: generate()
+
+BackupService
+  Methods: scheduleBackup(time: String)
+```
+
+---
+
+## 📊 Evaluation Metrics
+
+| Metric       | Value |
+| ------------ | ----- |
+| Precision    | 74.3% |
+| Recall       | 96.3% |
+| F1 Score     | 83.9% |
+| Completeness | 96.3% |
+| Correctness  | 87.9% |
+
+---
+
+## 🧮 Metric Computation Details
+
+* **True Positives (TP):**
+  * Classes: 8
+  * Attributes: 24
+  * Methods: 13
+  * Relationships: 7
+
+* **False Positives (FP):**
+  * Classes: 1
+  * Attributes: 6
+  * Methods: 7
+  * Relationships: 4
+
+* **False Negatives (FN):**
+  * Attributes: 1
+  * Relationships: 1
+
+```
+Precision = TP / (TP + FP) = 52 / 70 ≈ 0.743
+Recall = TP / (TP + FN) = 52 / 54 ≈ 0.963
+F1 Score = 2 * Precision * Recall / (Precision + Recall) ≈ 0.839
+Correctness = (52 + 6 - 5 + 70) / (2 * 70) ≈ 0.879
+```
+
+---
+
+## 📎 License
+
+This project is for academic demonstration only.
