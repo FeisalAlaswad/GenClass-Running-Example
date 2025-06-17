@@ -212,12 +212,6 @@ BackupService
 
 ---
 
-# 📚 UML Class Diagram Evaluation: Library Management System
-
-This repository includes a detailed evaluation of a generated UML class diagram against ground truth (GT) elements, focusing on a Library Management System. Each element (Class, Attribute, Method, Relation) is assessed for correctness, completeness, and impact.
-
----
-
 ## 📌 Element-wise Evaluation Table
 
 | Type       | In GT? | Element                                                       | Source                              | Impact    | Required |
