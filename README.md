@@ -109,9 +109,9 @@ User <|-- Admin
 ## 🧹 Preprocessed Requirements
 
 ```
-- Allow users to search books by title, author, genre, or ISBN
-- Enable users to reserve books online
-- Notify users via email when a reserved book is available
+- Allow users to search books by title, author, genre, ISBN
+- Enable users reserve books online
+- Notify users via email when reserved book is available
 - Users can view loans and due dates from their dashboard
 - Restrict users from borrowing more than five books
 - Calculate and display overdue fines based on return date
