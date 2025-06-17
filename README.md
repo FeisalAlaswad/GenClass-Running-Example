@@ -159,11 +159,10 @@ R7: Add class Librarian
     Librarian.methods = [addBook(Book), updateBook(Book), removeBook(Book)]
     Librarian -- Book [manages]
 
-R8: Add class AuthenticationService, optional: Admin
+R8: Add class AuthenticationService
     User.attributes += [role]
     AuthenticationService.methods = [authenticate(username, password)]
     AuthenticationService --> User [authenticates]
-    Admin <|-- User, Librarian <|-- User
 
 R9: Add class Report
     Report.attributes = [month, borrowingTrends, overdueItems]
@@ -206,8 +205,6 @@ Report
   Attributes: reportId: int, generatedOn: Date
   Methods: generate()
 
-Admin
-  Attributes: adminId: int, username: String
 
 BackupService
   Methods: scheduleBackup(time: String)
