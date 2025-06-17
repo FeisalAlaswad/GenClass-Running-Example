@@ -206,6 +206,9 @@ Report
   Attributes: reportId: int, generatedOn: Date
   Methods: generate()
 
+Admin
+  Attributes: adminId: int, username: String
+
 BackupService
   Methods: scheduleBackup(time: String)
 ```
