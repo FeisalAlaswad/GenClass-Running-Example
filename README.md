@@ -136,6 +136,7 @@ R1: Classes added: User, Book
 R2: No new classes
     User.methods += [reserveBook(Book)]
     User -- Book [reserves]
+    <!-- User -- Book [reserves] -->
 
 R3: Add class NotificationService
     NotificationService.methods = [sendEmail(User, String)]
