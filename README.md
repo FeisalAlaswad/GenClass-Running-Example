@@ -231,14 +231,14 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Attribute | TRUE   | TRUE           | name: String                                       | Suggested                      | Valid      | TRUE     |
 | Attribute | TRUE   | FALSE          | email: String                                      | Not Identified & Not Suggested | Valid      | FALSE    |
 | Attribute | FALSE  | TRUE           | address: String                                    | Suggested                      | Valid      | FALSE    |
-| Attribute | TRUE   | TRUE           | role: String                                       | Identified from R8             | Valid      | TRUE     |
+| Attribute | TRUE   | TRUE           | role: Role                                       | Identified from R8             | Valid(Partially)      | TRUE     |
 | Attribute | FALSE  | TRUE           | userFingerprint: binary                            | Identified from R8             | Harmful    | FALSE    |
 | Attribute | TRUE   | TRUE           | maxLoans: int                                      | Identified from R5             | Valid      | TRUE     |
 | Attribute | FALSE  | TRUE           | preferredLanguage: String                          | Suggested                      | Harmless   | FALSE    |
 | Attribute | FALSE  | TRUE           | dashboard                                          | Identified from R4             | Harmless   | FALSE    |
 | Method    | TRUE   | TRUE           | searchBooks(criteria: String): List<Book>          | Identified from R1             | Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | viewBookCovers(): List<String>                     | Identified from R1             | Harmless   | FALSE    |
-| Method    | TRUE   | TRUE           | reserveBook(book: Book): void                      | Identified from R2             | Valid      | TRUE     |
+| Method    | TRUE   | TRUE           | reserveBook(): void                      | Identified from R2             | Valid(Partially)      | TRUE     |
 | Method    | TRUE   | TRUE           | viewLoans(): List<Loan>                            | Identified from R4             | Valid      | FALSE    |
 | Method    | TRUE   | TRUE           | login(username: String, password: String): boolean | Suggested                      | Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | cancelReservation(bookId: String): void            | Suggested                      | Valid      | TRUE     |
@@ -259,7 +259,7 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Attribute | TRUE   | TRUE           | returnDate: Date                                   | Identified from R6             | Valid      | TRUE     |
 | Attribute | TRUE   | TRUE           | fine: float                                        | Identified from R6             | Valid      | TRUE     |
 | Method    | FALSE  | TRUE           | renewLoan(loanId: int): boolean                    | Identified from R4             | Valid      | FALSE    |
-| Method    | TRUE   | TRUE           | calculateFine(currentDate: Date): float            | Identified from R6             | Valid      | TRUE     |
+| Method    | TRUE   | TRUE           | calculateFine(currentDate: Date): int            | Identified from R6             | Valid(Partially)      | TRUE     |
 | Method    | TRUE   | TRUE           | isOverdue(currentDate: Date): boolean              | Suggested                      | Valid      | TRUE     |
 | Class     | TRUE   | TRUE           | Librarian                                          | Identified from R7             | Valid      | TRUE     |
 | Attribute | TRUE   | TRUE           | employeeId: int                                    | Suggested                      | Valid      | TRUE     |
