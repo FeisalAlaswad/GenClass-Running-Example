@@ -373,8 +373,7 @@ Let:
 
 
 
-> ✅ **Conclusion**: The generated class diagram shows high correctness across all component types, especially for Classes. The model can be further improved by avoiding harmful predictions (like sensitive attributes or unsupported methods), and boosting recall through better coverage of GT items.
-
+> ✅ **Conclusion**: The generated class diagram shows high correctness across all component types, especially for Classes.
 
 
 ## 📎 License
