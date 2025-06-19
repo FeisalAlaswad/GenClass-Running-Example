@@ -288,7 +288,7 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Method    | TRUE   | TRUE           | notifyAvailability(book: Book): void               | Suggested                      | Valid      | FALSE    |
 | Class     | TRUE   | TRUE           | AuthenticationService                              | Identified from R8             | Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | authenticate(username: String, password: String)   | Identified from R8             | Valid      | TRUE     |
-| Method    | TRUE   | TRUE           | resetPassword(email: String): void                 | Suggested                      | Valid      | TRUE     |
+| Method    | TRUE   | TRUE           | resetPassword(email: String): void                 | Identified from R8                      | Valid      | TRUE     |
 | Class     | TRUE   | TRUE           | BackupService                                      | Identified from R10            | Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | backupData(): void                                 | Identified from R10            | Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | scheduleBackup(time: String): void                 | Suggested                      | Valid      | FALSE    |
