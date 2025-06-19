@@ -236,7 +236,7 @@ Where $N_{\text{correct}}$ stands for the count of accurately identified compone
 The **Precision** percentage refers to the accuracy of the components recognized in the proposed approach and is calculated as in Equation (2).
 
 $$
-\text{Precision} = \frac{N_{\text{correct}}}{N_{\text{correct}}+ N_{\text{incorrect}}} \tag{2}
+\text{Precision} = \frac{N_{\text{correct}}}{N_{\text{correct}}+ N_{\text{incorrect}}}
 $$
 
 Here, $N_{\text{incorrect}}$ denotes the components incorrectly classified as correct.
@@ -244,7 +244,7 @@ Here, $N_{\text{incorrect}}$ denotes the components incorrectly classified as co
 Finally, the **F1 score** is computed as shown in Equation (3):
 
 $$
-F1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} \tag{3}
+F1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
 $$
 
 ---
@@ -254,7 +254,7 @@ $$
 Measures the accuracy of elements, rewarding valid additions and penalizing incorrect ones, as given in Equation (4):
 
 $$
-\text{Correctness} = \frac{C_{\text{TP}} + C_{\text{Extra+}} - C_{\text{Extra-}} + D}{2D} \tag{4}
+\text{Correctness} = \frac{C_{\text{TP}} + C_{\text{Extra+}} - C_{\text{Extra-}} + D}{2D}
 $$
 
 Where:
@@ -272,7 +272,7 @@ Where:
 Measures how many essential elements from the reference are present in the generated model, as given in Equation (5). Only elements that are fully correct—matching in both type and structure—are counted. Partial or approximate matches are excluded to ensure strict semantic alignment.
 
 $$
-\text{Completeness} = \frac{E_{\text{Full-Matched}}}{E_{\text{GT}}} \tag{5}
+\text{Completeness} = \frac{E_{\text{Full-Matched}}}{E_{\text{GT}}}
 $$
 
 Where:
