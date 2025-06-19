@@ -339,13 +339,13 @@ This report presents the detailed performance evaluation of a UML class diagram 
 
 ## 📊 Updated Per-Type Evaluation Summary
 
-| **Type**      | **GT Count** | **Correct** | **Missed** | **Extra (Valid)** | **Extra (Harmless)** | **Extra (Harmful)** | **Full-Match Required** | **Correctness** | **Completeness** |
+| **Type**      | **GT Count** | **Correct/Fully Correct** | **Missed** | **Extra (Valid)** | **Extra (Harmless)** | **Extra (Harmful)** | **Full-Match Required** | **Correctness** | **Completeness** |
 |---------------|--------------|-------------|------------|-------------------|----------------------|---------------------|-------------------------|------------------|------------------|
-| **Class**     | 9            | 8           | 1          | 0                 | 0                    | 0                   | 8/9                       | 0.889            | 0.889            |
-| **Attribute** | 27           | 23          | 4          | 1                 | 2                    | 1                   | 18/22                      | 0.852            | 0.8181            |
-| **Method**    | 20           | 19          | 1          | 1                 | 1                    | 1                   | 12/15                      | 0.950            | 0.80            |
-| **Relation**  | 11           | 7           | 4          | 1                 | 1                    | 1                   | 7/11                      | 0.600            | 0.600            |
-| **Overall**   | 67           | 57          | 10         | 3                 | 4                    | 3                   | 45/57                      | 0.848            | 0.789           |
+| **Class**     | 9            | 8           | 1          | 0                 | 0                    | 0                   | 8/9                       | 1.0            | 0.889            |
+| **Attribute** | 27           | 23/22          | 4          | 1                 | 2                    | 1                   | 18/22                      | 0.923            | 0.8181            |
+| **Method**    | 20           | 19/17          | 1          | 1                 | 1                    | 1                   | 12/15                      | 0.925            | 0.80            |
+| **Relation**  | 11           | 7/7           | 4          | 1                 | 1                    | 1                   | 7/11                      | 0.85            | 0.600            |
+| **Overall**   | 67           | 57          | 10         | 3                 | 4                    | 3                   | 45/57                      | 0.921            | 0.789           |
 
 
 
@@ -355,7 +355,8 @@ This report presents the detailed performance evaluation of a UML class diagram 
 
 Let:
 - **GT Count** = Number of elements in Ground Truth (Gold Standard)
-- **Correct** = Correctly predicted elements (in both GT and Predicted)
+- **Correct** = Correctly predicted elements (in both GT and Predicted) including full and partial matches
+- **Fully Correct** = Correctly predicted elements (in both GT and Predicted) including only full match
 - **Missed** = GT elements not found in prediction
 - **Extra (X)** = Extra predicted elements not in GT, categorized by impact
 - **Correctness** = `Correct / (Correct + Extra Valid + Extra Harmless + Extra Harmful)`
