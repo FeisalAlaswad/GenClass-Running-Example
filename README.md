@@ -316,8 +316,8 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Class     | 9        | 8         | 8       | 0         | 1      | 100.00         | 88.89       | 94.12         |
 | Attribute | 27       | 27        | 23      | 4         | 4      | 85.19          | 85.19       | 85.19         |
 | Method    | 20       | 22        | 19      | 3         | 1      | 86.36          | 95.00       | 90.48         |
-| Relation  | 11       | 10        | 7       | 3         | 4      | 70.00          | 63.64       | 66.67         |
-| **Total** | 67       | 67        | 57      | 10        | 10     | 85.07          | 85.07       | 85.07         |
+| Relation  | 11       | 8        | 6       | 2         | 5      | 75.00          | 54.54       | 63.15         |
+| **Total** | 67       | 65        | 56      | 9        | 11     | 86.15          | 83.58       | 84.84         |
 
 
 
