@@ -460,7 +460,7 @@ Let:
 
 ## 🧮 Evaluation Metrics Script
 
-The following Python script loads an annotated CSV file, computes evaluation metrics (`Correctness`, `Completeness`), and prints a formatted table. It handles multiple types (e.g., Class, Attribute) and provides an "Overall" summary at the end.
+The following Python script loads an annotated CSV file, computes evaluation metrics (`Correctness`, `Completeness`, `Recall`, `Precision`, `F1-Score`), and prints a formatted table. It handles multiple types (e.g., Class, Attribute) and provides an "Overall" summary at the end.
 
 
 ### 📜 Python Code
