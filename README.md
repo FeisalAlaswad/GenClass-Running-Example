@@ -312,7 +312,7 @@ This report presents the detailed performance evaluation of a UML class diagram 
 
 ## 📋 Evaluation Summary
 
-| Type      | GT Count | Predicted | Correct | Incorrect | Missed | Precision (%) | Recall (%) | F1-score (%) |
+| Type      | GT Count | Predicted | Correct(TP) | Incorrect(FP) | Missed(FN) | Precision (%) | Recall (%) | F1-score (%) |
 |-----------|----------|-----------|---------|-----------|--------|----------------|-------------|---------------|
 | Class     | 9        | 8         | 8       | 0         | 1      | 100.00         | 88.89       | 94.12         |
 | Attribute | 27       | 27        | 23      | 4         | 4      | 85.19          | 85.19       | 85.19         |
@@ -327,12 +327,10 @@ This report presents the detailed performance evaluation of a UML class diagram 
 
 ## 📌 Notes
 
-- Only **Valid** items were counted for evaluation metrics.
-- Harmful additions were **excluded** from correct predictions.
-- `GT Count`: Ground truth number of valid elements.
-- `Correct`: Elements present in both GT and predictions.
-- `Precision`: `Correct / Predicted`
-- `Recall`: `Correct / GT`
+- `GT Count`: Ground truth number of elements.
+- `Correct`: Elements present in both GT and predictions (TP).
+- `Precision`: `Correct / (Correct + Incorrect)`
+- `Recall`: `Correct / (Correct + Missed)`
 - `F1`: Harmonic mean of Precision and Recall.
 
 ---
