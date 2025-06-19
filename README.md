@@ -228,7 +228,7 @@ This report presents the detailed performance evaluation of a UML class diagram 
 The **Recall** percentage refers to the system's ability to generate all components of a class diagram, as in Equation (1).
 
 $$
-\text{Recall} = \frac{N_{\text{correct}}}{N_{\text{correct}}+ N_{\text{missed}}} \tag{1}
+\text{Recall} = \frac{N_{\text{correct}}}{N_{\text{correct}} + N_{\text{missed}}}
 $$
 
 Where $N_{\text{correct}}$ stands for the count of accurately identified components, and $N_{\text{missed}}$ represents the number of components identified by the human expert (ground truth) but overlooked by the proposed approach.
