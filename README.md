@@ -154,7 +154,7 @@ R5: No new classes
 
 R6: Extend Loan class
     Loan.attributes += [returnDate, fine]
-    Loan.methods += [calculateFine(Date): float, isOverdue(Date): boolean]
+    Loan.methods += [calculateFine(Date): float]
 
 R7: Add class Librarian
     Librarian.methods = [addBook(Book), updateBook(Book), removeBook(Book)]
@@ -206,6 +206,8 @@ Loan
     - loanDate: Date
     - userId: int
     - bookId: String
+  Method:
+    - isOverdue(Date): boolean
 
 Librarian
   Attributes:
