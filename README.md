@@ -434,6 +434,7 @@ Let:
 
 > ✅ **Conclusion**: The generated class diagram shows high correctness across all component types, especially for Classes.
 
+---
 
 ## 🧮 Evaluation Metrics Script
 
@@ -530,6 +531,7 @@ df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 
 # Generate the evaluation table
 calculate_metrics(df)
+```
 
 
 
