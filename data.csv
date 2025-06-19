@@ -1,0 +1,78 @@
+Type,In GT?,In Predicted?,Element,Source,Impact,Required
+--------,--------,--------,--------,--------,--------,--------
+Class,TRUE,TRUE,User,Identified from R1,Valid,TRUE
+Attribute,TRUE,TRUE,id: int,Suggested,Valid,TRUE
+Attribute,TRUE,TRUE,name: String,Suggested,Valid,TRUE
+Attribute,TRUE,FALSE,email: String,Not Identified & Not Suggested,Valid,FALSE
+Attribute,FALSE,TRUE,address: String,Suggested,Extra Valid,FALSE
+Attribute,TRUE,TRUE,role: Role,Identified from R8,Partially Valid,TRUE
+Attribute,FALSE,TRUE,userFingerprint: binary,Identified from R8,Extra Harmful,FALSE
+Attribute,TRUE,TRUE,maxLoans: int,Identified from R5,Valid,TRUE
+Attribute,FALSE,TRUE,preferredLanguage: String,Suggested,Extra Harmless,FALSE
+Attribute,FALSE,TRUE,dashboard,Identified from R4,Extra Harmless,FALSE
+Method,TRUE,TRUE,searchBooks(criteria: String): List<Book>,Identified from R1,Valid,TRUE
+Method,FALSE,TRUE,viewBookCovers(): List<String>,Identified from R2,Extra Harmless,FALSE
+Method,TRUE,TRUE,reserveBook(): Book,Identified from R2,Partially Valid,TRUE
+Method,TRUE,TRUE,viewLoans(): List<Loan>,Identified from R4,Valid,FALSE
+Method,TRUE,TRUE,"login(username: String, password: String): boolean",Suggested,Valid,TRUE
+Method,TRUE,TRUE,cancelReservation(bookId: String): void,Suggested,Valid,TRUE
+Class,TRUE,TRUE,Book,Identified from R1,Valid,TRUE
+Attribute,TRUE,TRUE,isbn: String,Identified from R1,Valid,TRUE
+Attribute,TRUE,TRUE,title: String,Identified from R1,Valid,TRUE
+Attribute,TRUE,TRUE,author: String,Identified from R1,Valid,TRUE
+Attribute,TRUE,TRUE,genre: String,Identified from R1,Valid,TRUE
+Attribute,TRUE,TRUE,available: boolean,Suggested,Valid,TRUE
+Attribute,TRUE,TRUE,publicationYear: int,Suggested,Valid,FALSE
+Method,TRUE,TRUE,isAvailable(): boolean,Suggested,Valid,FALSE
+Class,TRUE,TRUE,Loan,Identified from R4,Valid,TRUE
+Attribute,TRUE,FALSE,id: int,Not Identified & Not Suggested,Valid,TRUE
+Attribute,TRUE,TRUE,userId: int,Suggested,Valid,TRUE
+Attribute,TRUE,TRUE,bookId: String,Suggested,Valid,TRUE
+Attribute,TRUE,TRUE,loanDate: Date,Suggested,Valid,FALSE
+Attribute,TRUE,TRUE,dueDate: Date,Identified from R4,Valid,TRUE
+Attribute,TRUE,TRUE,returnDate: Date,Identified from R6,Valid,TRUE
+Attribute,TRUE,TRUE,fine: float,Identified from R6,Valid,TRUE
+Method,FALSE,TRUE,renewLoan(loanId: int): boolean,Identified from R4,Extra Valid,FALSE
+Method,TRUE,TRUE,calculateFine(currentDate: Date): int,Identified from R6,Partially Valid,TRUE
+Method,TRUE,TRUE,isOverdue(currentDate: Date): boolean,Suggested,Valid,TRUE
+Class,TRUE,TRUE,Librarian,Identified from R7,Valid,TRUE
+Attribute,TRUE,TRUE,employeeId: int,Suggested,Valid,TRUE
+Attribute,TRUE,TRUE,name: String,Suggested,Valid,TRUE
+Method,TRUE,TRUE,addBook(book: Book): void,Identified from R7,Valid,TRUE
+Method,TRUE,TRUE,updateBook(book: Book): void,Identified from R7,Valid,TRUE
+Method,TRUE,TRUE,removeBook(book: Book): void,Identified from R7,Valid,TRUE
+Method,FALSE,TRUE,overrideLoanLimit(userId: int): void,Suggested,Extra Harmful,FALSE
+Method,TRUE,TRUE,viewAllLoans(): List<Loan>,Suggested,Valid,FALSE
+Class,TRUE,FALSE,Admin,Not Identified & Not Suggested,Valid,TRUE
+Attribute,TRUE,FALSE,adminId: int,Not Identified & Not Suggested,Valid,TRUE
+Attribute,TRUE,FALSE,username: String,Not Identified & Not Suggested,Valid,TRUE
+Method,TRUE,FALSE,generateReports(): Report,Not Identified & Not Suggested,Valid,TRUE
+Class,TRUE,TRUE,Report,Identified from R9,Valid,TRUE
+Attribute,TRUE,TRUE,reportId: int,Suggested,Valid,TRUE
+Attribute,TRUE,TRUE,generatedOn: Date,Suggested,Valid,TRUE
+Attribute,TRUE,TRUE,month: String,Identified from R9,Valid,FALSE
+Attribute,TRUE,TRUE,borrowingTrends: String,Identified from R9,Valid,FALSE
+Attribute,TRUE,TRUE,overdueItems: String,Identified from R9,Valid,TRUE
+Method,TRUE,TRUE,generate(): void,Suggested,Valid,TRUE
+Class,TRUE,TRUE,NotificationService,Identified from R3,Valid,TRUE
+Method,TRUE,TRUE,"sendEmail(user: User, message: String): void",Identified from R3,Valid,TRUE
+Method,TRUE,TRUE,notifyAvailability(book: Book): void,Suggested,Valid,FALSE
+Class,TRUE,TRUE,AuthenticationService,Identified from R8,Valid,TRUE
+Method,TRUE,TRUE,"authenticate(username: String, password: String)",Identified from R8,Valid,TRUE
+Method,TRUE,TRUE,resetPassword(email: String): void,Suggested,Valid,TRUE
+Class,TRUE,TRUE,BackupService,Identified from R10,Valid,TRUE
+Method,TRUE,TRUE,backupData(): void,Identified from R10,Valid,TRUE
+Method,TRUE,TRUE,scheduleBackup(time: String): void,Suggested,Valid,FALSE
+Relation,TRUE,FALSE,"User ""1"" -- ""many"" Loan",Not Identified & Not Suggested,Valid,TRUE
+Relation,TRUE,FALSE,"Book ""1"" -- ""many"" Loan",Not Identified & Not Suggested,Valid,TRUE
+Relation,TRUE,FALSE,"User ""1"" -- ""*"" Book : reserves >",Not Identified & Not Suggested,Valid,TRUE
+Relation,TRUE,TRUE,User --> NotificationService : uses >,Identified from R3,Valid,TRUE
+Relation,TRUE,TRUE,User --> Report : receives >,Suggested,Valid,TRUE
+Relation,TRUE,TRUE,User --> AuthenticationService : authenticates >,Identified from R8,Valid,TRUE
+Relation,TRUE,FALSE,Admin --> Report : generates >,Identified from R9,Valid,TRUE
+Relation,TRUE,TRUE,Librarian --> Book : manages >,Identified from R7,Valid,TRUE
+Relation,TRUE,TRUE,Librarian --> User : verifies >,Suggested,Valid,TRUE
+Relation,TRUE,TRUE,User </-- Librarian,Identified from R8,Valid,TRUE
+Relation,TRUE,FALSE,User </-- Admin,Not Identified & Not Suggested,Valid,TRUE
+Relation,FALSE,TRUE,Librarian --> NotificationService : notifies,Identified from R4,Extra Valid,FALSE
+Relation,FALSE,TRUE,Loan --> Report : generates,Suggested,Extra Harmful,FALSE
