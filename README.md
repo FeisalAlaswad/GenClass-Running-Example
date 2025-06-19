@@ -131,49 +131,52 @@ User <|-- Admin
 
 ```
 R1: Classes added: User, Book 
-    Book.attributes = [title, author, genre, isbn]
-    User.methods = [searchBooks()] 
-    User.methods = [viewBookCovers()] 
+    Book.attributes = [isbn, title, author, genre]
+    User.methods = [searchBooks(String): List<Book>]
+    User.attributes = [id]
     User -- Book [searches]
 
 R2: No new classes
-    User.methods += [reserveBook(Book)] 
+    User.methods += [viewBookCovers(): List, reserveBook(Book): Book]
     User -- Book [reserves]
-    <!-- User -- Book [reserves] -->
 
 R3: Add class NotificationService
-    NotificationService.methods = [sendEmail(User, String)]
-    User --> NotificationService [receives email]
+    NotificationService.methods = [sendEmail(User, String): void]
+    User --> NotificationService [uses]
 
 R4: Add class Loan
-    Loan.attributes = [dueDate]
-    User.methods += [viewLoans()] 
-    User.attributes += [dashboard] 
+    Loan.attributes += [dueDate]
+    User.attributes += [dashboard]
+    User.methods += [viewLoans(): List<Loan>]
     User -- Loan [has]
+    Librarian --> NotificationService [notifies]
 
 R5: No new classes
-    User.attributes += [maxLoans] 
+    User.attributes += [maxLoans]
 
 R6: Extend Loan class
-    Loan.attributes += [fine, returnDate]
-    Loan.methods += [calculateFine(Date)]
+    Loan.attributes += [returnDate, fine]
+    Loan.methods += [calculateFine(Date): float, isOverdue(Date): boolean]
 
 R7: Add class Librarian
     Librarian.methods = [addBook(Book), updateBook(Book), removeBook(Book)]
+    Report.attributes += [month, borrowingTrends, overdueItems]
     Librarian -- Book [manages]
 
 R8: Add class AuthenticationService
-    User.attributes += [role] 
-    User.attributes += [userFingerprint] 
-    AuthenticationService.methods = [authenticate(username, password)]
-    AuthenticationService --> User [authenticates]
+    User.attributes += [role, userFingerprint]
+    AuthenticationService.methods = [authenticate(String, String): boolean, resetPassword(String): void]
+    User --> AuthenticationService [authenticates]
+    User <|-- Librarian
 
 R9: Add class Report
-    Report.attributes = [month, borrowingTrends, overdueItems]
-    Report -- Loan [summarizes]
+    Report.attributes += [reportId, generatedOn: Date]
+    Report.methods += [generate(): void]
+    Loan --> Report [generates]
 
 R10: Add class BackupService
-    BackupService.methods = [backupData()]
+    BackupService.methods = [backupData(): void, scheduleBackup(String): void]
+
 ```
 
 ---
@@ -182,37 +185,56 @@ R10: Add class BackupService
 
 ```
 User
-  Attributes: id: int, name: String, address: String 
-  Attributes: prefferedLanguage: String 
-  Methods: login(username, password), cancelReservation(bookId) 
-  Relations: User --> AuthenticationService, User --> Report
+  Attributes:
+    - name: String
+    - address: String
+    - preferredLanguage: String
+  Methods:
+    - login(username: String, password: String): boolean
+    - cancelReservation(bookId: String): void
+  Relations:
+    - User --> Report [receives]
+    - User --> AuthenticationService [authenticates]
 
 Book
-  Attributes: available: boolean, publicationYear: int
-  Methods: isAvailable()
+  Attributes:
+    - available: boolean
+    - publicationYear: int
+  Methods:
+    - isAvailable(): boolean
 
 Loan
-  Attributes: loanDate: Date, bookId: String, userId: int
-  Methods: isOverdue(currentDate)
+  Attributes:
+    - loanDate: Date
+    - userId: int
+    - bookId: String
 
 Librarian
-  Attributes: employeeId: int, name: String
-  Methods: viewAllLoans()
-  Relations: Librarian --> User
+  Attributes:
+    - employeeId: int
+    - name: String
+  Methods:
+    - viewAllLoans(): List<Loan>
+    - overrideLoanLimit(userId: int): void
+  Relations:
+    - Librarian --> User [verifies]
 
 NotificationService
-  Methods: notifyAvailability(Book)
-
-AuthenticationService
-  Methods: resetPassword(email)
+  Methods:
+    - notifyAvailability(Book): void
 
 Report
-  Attributes: reportId: int, generatedOn: Date
-  Methods: generate()
+  Methods:
+    - generate(): void
 
+AuthenticationService
+  Methods:
+    - resetPassword(email: String): void
 
 BackupService
-  Methods: scheduleBackup(time: String)
+  Methods:
+    - scheduleBackup(time: String): void
+
 ```
 
 ---
