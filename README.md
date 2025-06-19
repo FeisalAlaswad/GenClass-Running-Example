@@ -134,11 +134,9 @@ R1: Classes added: User, Book
     Book.attributes = [isbn, title, author, genre]
     User.methods = [searchBooks(String): List<Book>]
     User.attributes = [id]
-    User -- Book [searches]
 
 R2: No new classes
     User.methods += [viewBookCovers(): List, reserveBook(Book): Book]
-    User -- Book [reserves]
 
 R3: Add class NotificationService
     NotificationService.methods = [sendEmail(User, String): void]
