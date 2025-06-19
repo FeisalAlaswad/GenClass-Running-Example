@@ -336,6 +336,8 @@ This report presents the detailed performance evaluation of a UML class diagram 
 
 
 
+
+
 ## 📊 Updated Per-Type Evaluation Summary
 
 | **Type**      | **GT Count** | **Correct/Fully Correct** | **Missed** | **Extra (Valid)** | **Extra (Harmless)** | **Extra (Harmful)** | **Full-Match Required** | **Correctness** | **Completeness** |
@@ -373,6 +375,120 @@ Let:
 
 
 > ✅ **Conclusion**: The generated class diagram shows high correctness across all component types, especially for Classes.
+
+
+## 🧮 Evaluation Metrics Script
+
+The following Python script loads an annotated CSV file, computes evaluation metrics (`Correctness`, `Completeness`), and prints a formatted table. It handles multiple types (e.g., Class, Attribute) and provides an "Overall" summary at the end.
+
+### 🔢 Formula
+
+- **Correctness** =  
+  \[
+  \text{Correctness} = \frac{C_{\text{TP}} + C_{\text{Extra+}} - C_{\text{Extra-}} + D}{2D}
+  \]
+  where:
+  - \( C_{\text{TP}} \): Fully correct (valid) predictions  
+  - \( C_{\text{Extra+}} \): Extra (valid + harmless)  
+  - \( C_{\text{Extra-}} \): Extra (harmful)  
+  - \( D = \text{FullyCorrect} + \text{ExtraValid} + \text{ExtraHarmless} + \text{ExtraHarmful} \)
+
+- **Completeness** =  
+  \[
+  \text{Completeness} = \frac{\text{Full Match Required}}{\text{Full Required in GT}}
+  \]
+
+### 📜 Python Code
+
+```python
+import pandas as pd
+
+def calculate_correctness(correct, valid, harmless, harmful):
+    D = correct + valid + harmless + harmful
+    if D == 0:
+        return 0.0
+    return round((correct + valid - harmful + D) / (2 * D), 3)
+
+def calculate_metrics(df):
+    output_rows = []
+    types = sorted(df['Type'].dropna().unique())
+    overall = {
+        'GT': 0, 'Correct': 0, 'FullyCorrect': 0, 'Missed': 0,
+        'ExtraValid': 0, 'ExtraHarmless': 0, 'ExtraHarmful': 0,
+        'FullMatchRequired': 0, 'FullRequiredInGT': 0
+    }
+
+    for t in types:
+        data = df[df['Type'] == t]
+        gt_count = len(data[data['In GT?'] == 'TRUE'])
+        correct = len(data[(data['In GT?'] == 'TRUE') & (data['In Predicted?'] == 'TRUE')])
+        fully_correct = len(data[(data['In GT?'] == 'TRUE') & (data['In Predicted?'] == 'TRUE') & (data['Impact'] == 'Valid')])
+        missed = len(data[(data['In GT?'] == 'TRUE') & (data['In Predicted?'] == 'FALSE')])
+        extra_valid = len(data[(data['In Predicted?'] == 'TRUE') & (data['Impact'] == 'Extra Valid')])
+        extra_harmless = len(data[(data['In Predicted?'] == 'TRUE') & (data['Impact'] == 'Extra Harmless')])
+        extra_harmful = len(data[(data['In Predicted?'] == 'TRUE') & (data['Impact'] == 'Extra Harmful')])
+        full_match_required = len(data[(data['In GT?'] == 'TRUE') & (data['In Predicted?'] == 'TRUE') & (data['Required'] == 'TRUE') & (data['Impact'] == 'Valid')])
+        full_required_in_gt = len(data[(data['In GT?'] == 'TRUE') & (data['Required'] == 'TRUE')])
+
+        overall['GT'] += gt_count
+        overall['Correct'] += correct
+        overall['FullyCorrect'] += fully_correct
+        overall['Missed'] += missed
+        overall['ExtraValid'] += extra_valid
+        overall['ExtraHarmless'] += extra_harmless
+        overall['ExtraHarmful'] += extra_harmful
+        overall['FullMatchRequired'] += full_match_required
+        overall['FullRequiredInGT'] += full_required_in_gt
+
+        correct_str = f"{correct}/{fully_correct}" if correct != fully_correct else str(correct)
+        full_required_str = f"{full_match_required}/{full_required_in_gt}" if full_required_in_gt else "0/0"
+        correctness = calculate_correctness(fully_correct, extra_valid, extra_harmless, extra_harmful)
+        completeness = round(full_match_required / full_required_in_gt, 3) if full_required_in_gt else 0.0
+
+        output_rows.append([
+            t, gt_count, correct_str, missed, extra_valid, extra_harmless,
+            extra_harmful, full_required_str, f"{correctness:.3f}", f"{completeness:.3f}"
+        ])
+
+    # Overall
+    o = overall
+    correct_str = f"{o['Correct']}/{o['FullyCorrect']}" if o['Correct'] != o['FullyCorrect'] else str(o['Correct'])
+    full_required_str = f"{o['FullMatchRequired']}/{o['FullRequiredInGT']}" if o['FullRequiredInGT'] else "0/0"
+    correctness = calculate_correctness(o['FullyCorrect'], o['ExtraValid'], o['ExtraHarmless'], o['ExtraHarmful'])
+    completeness = round(o['FullMatchRequired'] / o['FullRequiredInGT'], 3) if o['FullRequiredInGT'] else 0.0
+
+    output_rows.append([
+        "Overall", o['GT'], correct_str, o['Missed'], o['ExtraValid'], o['ExtraHarmless'],
+        o['ExtraHarmful'], full_required_str, f"{correctness:.3f}", f"{completeness:.3f}"
+    ])
+
+    # Fixed-width column headers
+    headers = [
+        "Type", "GT Count", "Correct/Fully Correct", "Missed",
+        "Extra (Valid)", "Extra (Harmless)", "Extra (Harmful)",
+        "Full-Match Required", "Correctness", "Completeness"
+    ]
+    widths = [12, 10, 23, 8, 15, 18, 17, 22, 12, 13]
+
+    def format_row(row):
+        return "| " + " | ".join(str(val).ljust(widths[i]) for i, val in enumerate(row)) + " |"
+
+    # Print table
+    print(format_row(headers))
+    print("|" + "|".join("-" * (w + 2) for w in widths) + "|")
+    for row in output_rows:
+        print(format_row(row))
+
+# Load and preprocess CSV
+csv_file_path = 'data.csv'
+df = pd.read_csv(csv_file_path)
+df = df.dropna(axis=1, how='all')
+df.columns = [col.strip() for col in df.columns]
+df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+
+# Generate the evaluation table
+calculate_metrics(df)
+
 
 
 ## 📎 License
