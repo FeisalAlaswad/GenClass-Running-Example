@@ -312,13 +312,15 @@ This report presents the detailed performance evaluation of a UML class diagram 
 
 ## 📋 Evaluation Summary
 
-| Type      | GT Count | Predicted | Correct | Precision (%) | Recall (%) | F1-score (%) |
-|-----------|----------|-----------|---------|----------------|-------------|---------------|
-| Class     | 7        | 6         | 6       | 85.71          | 85.71       | 85.71         |
-| Attribute | 29       | 33        | 23      | 69.70          | 79.31       | 74.18         |
-| Method    | 20       | 22        | 17      | 77.27          | 85.00       | 80.90         |
-| Relation  | 12       | 16        | 8       | 50.00          | 66.67       | 57.14         |
-| **Total** | 68       | 77        | 54      | 70.13          | 79.41       | 74.47         |
+| Type      | GT Count | Predicted | Correct | Incorrect | Missed | Precision (%) | Recall (%) | F1-score (%) |
+|-----------|----------|-----------|---------|-----------|--------|----------------|-------------|---------------|
+| Class     | 9        | 8         | 8       | 0         | 1      | 100.00         | 88.89       | 94.12         |
+| Attribute | 27       | 27        | 23      | 4         | 4      | 85.19          | 85.19       | 85.19         |
+| Method    | 20       | 22        | 19      | 3         | 1      | 86.36          | 95.00       | 90.48         |
+| Relation  | 11       | 10        | 7       | 3         | 4      | 70.00          | 63.64       | 66.67         |
+| **Total** | 67       | 67        | 57      | 10        | 10     | 85.07          | 85.07       | 85.07         |
+
+
 
 ---
 
