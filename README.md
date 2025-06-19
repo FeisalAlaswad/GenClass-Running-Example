@@ -301,8 +301,8 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Relation  | TRUE   | TRUE           | Admin --> Report : generates >                     | Identified from R9             | Valid      | TRUE     |
 | Relation  | TRUE   | TRUE           | Librarian --> Book : manages >                     | Identified from R7             | Valid      | TRUE     |
 | Relation  | TRUE   | TRUE           | Librarian --> User : verifies >                    | Suggested                      | Valid      | TRUE     |
-| Relation  | TRUE   | TRUE           | User "<|--" Librarian                                | Identified from R8             | Valid      | TRUE     |
-| Relation  | TRUE   | FALSE          | User "<|--" Admin                                     | Not Identified & Not Suggested | Valid      | TRUE     |
+| Relation  | TRUE   | TRUE           | User </-- Librarian                                | Identified from R8             | Valid      | TRUE     |
+| Relation  | TRUE   | FALSE          | User </-- Admin                                     | Not Identified & Not Suggested | Valid      | TRUE     |
 | Relation  | FALSE  | TRUE           | Librarian --> NotificationService : notifies       | Identified from R4             | Extra Valid      | FALSE    |
 | Relation  | FALSE  | TRUE           | Admin --> NotificationService : oversees           | Identified from R4             | Extra Harmless   | FALSE    |
 | Relation  | FALSE  | TRUE           | Loan --> Report : generates                        | Suggested                      | Extra Harmful    | FALSE    |
