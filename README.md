@@ -103,6 +103,8 @@ User <|-- Librarian
 User <|-- Admin
 @enduml
 ```
+![UML Diagram](running_example_gt.png)
+
 
 ---
 
