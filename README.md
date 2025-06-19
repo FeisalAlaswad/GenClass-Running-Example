@@ -236,7 +236,7 @@ BackupService
     - scheduleBackup(time: String): void
 
 ```
-
+![UML Diagram](running_example_p.png)
 ---
 
 # 📊 Evaluation Report: UML Component Extraction
