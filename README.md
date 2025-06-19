@@ -221,6 +221,64 @@ BackupService
 
 This report presents the detailed performance evaluation of a UML class diagram extraction system based on a Library Management System. It compares the predicted elements against the ground truth using standard metrics (Precision, Recall, and F1-score) for each UML component type: **Class**, **Attribute**, **Method**, and **Relation**.
 
+---
+
+
+# 📑 Evaluation criteria:
+The **Recall** percentage refers to the system's ability to generate all components of a class diagram, as in Equation (1).
+
+$$
+\text{Recall} = \frac{N_{\text{correct}}}{N_{\text{correct}}+ N_{\text{missed}}} \tag{1}
+$$
+
+Where $N_{\text{correct}}$ stands for the count of accurately identified components, and $N_{\text{missed}}$ represents the number of components identified by the human expert (ground truth) but overlooked by the proposed approach.
+
+The **Precision** percentage refers to the accuracy of the components recognized in the proposed approach and is calculated as in Equation (2).
+
+$$
+\text{Precision} = \frac{N_{\text{correct}}}{N_{\text{correct}}+ N_{\text{incorrect}}} \tag{2}
+$$
+
+Here, $N_{\text{incorrect}}$ denotes the components incorrectly classified as correct.
+
+Finally, the **F1 score** is computed as shown in Equation (3):
+
+$$
+F1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} \tag{3}
+$$
+
+---
+
+### Correctness
+
+Measures the accuracy of elements, rewarding valid additions and penalizing incorrect ones, as given in Equation (4):
+
+$$
+\text{Correctness} = \frac{C_{\text{TP}} + C_{\text{Extra+}} - C_{\text{Extra-}} + D}{2D} \tag{4}
+$$
+
+Where:
+
+- $C_{\text{TP}}$: Correct elements that fully match the reference  
+- $C_{\text{Extra+}}$: Extra but valid elements  
+- $C_{\text{Extra-}}$: Extra and harmful elements  
+- $C_{\text{Extra0}}$: Extra but harmless elements  
+- $D$: Total elements = $C_{\text{TP}} + C_{\text{Extra+}} + C_{\text{Extra0}} + C_{\text{Extra-}}$
+
+---
+
+### Completeness
+
+Measures how many essential elements from the reference are present in the generated model, as given in Equation (5). Only elements that are fully correct—matching in both type and structure—are counted. Partial or approximate matches are excluded to ensure strict semantic alignment.
+
+$$
+\text{Completeness} = \frac{E_{\text{Full-Matched}}}{E_{\text{GT}}} \tag{5}
+$$
+
+Where:
+
+- $E_{\text{Full-Matched}}$: Required elements correctly and fully generated  
+- $E_{\text{GT}}$: Total required elements in the reference diagram
 
 
 ---
@@ -381,22 +439,6 @@ Let:
 
 The following Python script loads an annotated CSV file, computes evaluation metrics (`Correctness`, `Completeness`), and prints a formatted table. It handles multiple types (e.g., Class, Attribute) and provides an "Overall" summary at the end.
 
-### 🔢 Formula
-
-- **Correctness** =  
-  \[
-  \text{Correctness} = \frac{C_{\text{TP}} + C_{\text{Extra+}} - C_{\text{Extra-}} + D}{2D}
-  \]
-  where:
-  - \( C_{\text{TP}} \): Fully correct (valid) predictions  
-  - \( C_{\text{Extra+}} \): Extra (valid + harmless)  
-  - \( C_{\text{Extra-}} \): Extra (harmful)  
-  - \( D = \text{FullyCorrect} + \text{ExtraValid} + \text{ExtraHarmless} + \text{ExtraHarmful} \)
-
-- **Completeness** =  
-  \[
-  \text{Completeness} = \frac{\text{Full Match Required}}{\text{Full Required in GT}}
-  \]
 
 ### 📜 Python Code
 
