@@ -356,11 +356,11 @@ This report presents the detailed performance evaluation of a UML class diagram 
 Let:
 - **GT Count** = Number of elements in Ground Truth (Gold Standard)
 - **Correct** = Correctly predicted elements (in both GT and Predicted) including full and partial matches
-- **Fully Correct** = Correctly predicted elements (in both GT and Predicted) including only full match
+- **Fully Correct**: Correctly predicted elements (present in both ground truth and predicted sets) that exactly match in all required aspects
 - **Missed** = GT elements not found in prediction
 - **Extra (X)** = Extra predicted elements not in GT, categorized by impact
-- **Correctness** = `Correct / (Correct + Extra Valid + Extra Harmless + Extra Harmful)`
-- **Completeness** = `Correct / (Correct + Missed)`
+- **Correctness** = `(Fully Correct + Extra Valid - Extra Harmful + Total Predicted) / (2 × Total Predicted)`
+- **Completeness** = `Full-Match Required / Full Required in GT`
 
 ---
 
