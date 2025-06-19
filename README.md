@@ -1,6 +1,6 @@
 # 🏛️ Running Example: Library Management System
 
-This repository demonstrates a complete end-to-end example of generating a UML class diagram from software requirements using a **Library Management System**.
+This repository demonstrates a complete end-to-end example of generating and evaluating a UML class diagram from software requirements using a **Library Management System**.
 
 ---
 
