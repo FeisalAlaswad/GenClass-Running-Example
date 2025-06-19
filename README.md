@@ -130,13 +130,14 @@ User <|-- Admin
 ### 🔄 Requirement-wise UML Mapping
 
 ```
-R1: Classes added: User, Book
+R1: Classes added: User, Book 
     Book.attributes = [title, author, genre, isbn]
-    User.methods = [searchBooks()]
+    User.methods = [searchBooks()] 
+    User.methods = [viewBookCovers()] 
     User -- Book [searches]
 
 R2: No new classes
-    User.methods += [reserveBook(Book)]
+    User.methods += [reserveBook(Book)] 
     User -- Book [reserves]
     <!-- User -- Book [reserves] -->
 
@@ -146,12 +147,12 @@ R3: Add class NotificationService
 
 R4: Add class Loan
     Loan.attributes = [dueDate]
-    User.methods += [viewLoans()]
-    User.attributes += [dashboard]
+    User.methods += [viewLoans()] 
+    User.attributes += [dashboard] 
     User -- Loan [has]
 
 R5: No new classes
-    User.attributes += [maxLoans]
+    User.attributes += [maxLoans] 
 
 R6: Extend Loan class
     Loan.attributes += [fine, returnDate]
@@ -162,7 +163,8 @@ R7: Add class Librarian
     Librarian -- Book [manages]
 
 R8: Add class AuthenticationService
-    User.attributes += [role]
+    User.attributes += [role] 
+    User.attributes += [userFingerprint] 
     AuthenticationService.methods = [authenticate(username, password)]
     AuthenticationService --> User [authenticates]
 
@@ -180,8 +182,9 @@ R10: Add class BackupService
 
 ```
 User
-  Attributes: id: int, name: String
-  Methods: login(username, password), cancelReservation(bookId)
+  Attributes: id: int, name: String, address: String 
+  Attributes: prefferedLanguage: String 
+  Methods: login(username, password), cancelReservation(bookId) 
   Relations: User --> AuthenticationService, User --> Report
 
 Book
