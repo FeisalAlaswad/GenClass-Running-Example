@@ -146,6 +146,7 @@ R4: Add class Loan
     Loan.attributes += [dueDate]
     User.attributes += [dashboard]
     User.methods += [viewLoans(): List<Loan>]
+    Loan.methods += [renewLoan(loanId: int): boolean]
     User -- Loan [has]
     Librarian --> NotificationService [notifies]
 
@@ -158,22 +159,21 @@ R6: Extend Loan class
 
 R7: Add class Librarian
     Librarian.methods = [addBook(Book), updateBook(Book), removeBook(Book)]
-    Report.attributes += [month, borrowingTrends, overdueItems]
     Librarian -- Book [manages]
 
 R8: Add class AuthenticationService
     User.attributes += [role, userFingerprint]
-    AuthenticationService.methods = [authenticate(String, String): boolean, resetPassword(String): void]
+    AuthenticationService.methods = [authenticate(String, String): boolean]
     User --> AuthenticationService [authenticates]
     User <|-- Librarian
 
 R9: Add class Report
-    Report.attributes += [reportId, generatedOn: Date]
-    Report.methods += [generate(): void]
-    Loan --> Report [generates]
+    Report.attributes += [month, borrowingTrends, overdueItems]
+    Admin --> Report [generates]
+
 
 R10: Add class BackupService
-    BackupService.methods = [backupData(): void, scheduleBackup(String): void]
+    BackupService.methods = [backupData(): void]
 
 ```
 
@@ -184,6 +184,7 @@ R10: Add class BackupService
 ```
 User
   Attributes:
+    - id: String
     - name: String
     - address: String
     - preferredLanguage: String
@@ -192,7 +193,6 @@ User
     - cancelReservation(bookId: String): void
   Relations:
     - User --> Report [receives]
-    - User --> AuthenticationService [authenticates]
 
 Book
   Attributes:
@@ -224,8 +224,12 @@ NotificationService
     - notifyAvailability(Book): void
 
 Report
+    - reportId: String
+    - generatedOn: Date
   Methods:
     - generate(): void
+  Relations:
+    - Loan --> Report [generates]
 
 AuthenticationService
   Methods:
@@ -234,6 +238,7 @@ AuthenticationService
 BackupService
   Methods:
     - scheduleBackup(time: String): void
+
 
 ```
 ![UML Diagram](running_example_p.png)
