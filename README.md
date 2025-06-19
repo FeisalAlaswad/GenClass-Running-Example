@@ -233,15 +233,15 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Attribute | TRUE   | TRUE           | id: int                                            | Suggested                      | Valid      | TRUE     |
 | Attribute | TRUE   | TRUE           | name: String                                       | Suggested                      | Valid      | TRUE     |
 | Attribute | TRUE   | FALSE          | email: String                                      | Not Identified & Not Suggested | Valid      | FALSE    |
-| Attribute | FALSE  | TRUE           | address: String                                    | Suggested                      | Valid      | FALSE    |
-| Attribute | TRUE   | TRUE           | role: Role                                       | Identified from R8             | Valid(Partially)      | TRUE     |
-| Attribute | FALSE  | TRUE           | userFingerprint: binary                            | Identified from R8             | Harmful    | FALSE    |
+| Attribute | FALSE  | TRUE           | address: String                                    | Suggested                      | Extra Valid      | FALSE    |
+| Attribute | TRUE   | TRUE           | role: Role                                       | Identified from R8             | Partially Valid      | TRUE     |
+| Attribute | FALSE  | TRUE           | userFingerprint: binary                            | Identified from R8             | Extra Harmful    | FALSE    |
 | Attribute | TRUE   | TRUE           | maxLoans: int                                      | Identified from R5             | Valid      | TRUE     |
-| Attribute | FALSE  | TRUE           | preferredLanguage: String                          | Suggested                      | Harmless   | FALSE    |
-| Attribute | FALSE  | TRUE           | dashboard                                          | Identified from R4             | Harmless   | FALSE    |
+| Attribute | FALSE  | TRUE           | preferredLanguage: String                          | Suggested                      | Extra Harmless   | FALSE    |
+| Attribute | FALSE  | TRUE           | dashboard                                          | Identified from R4             | Extra Harmless   | FALSE    |
 | Method    | TRUE   | TRUE           | searchBooks(criteria: String): List<Book>          | Identified from R1             | Valid      | TRUE     |
-| Method    | TRUE   | TRUE           | viewBookCovers(): List<String>                     | Identified from R1             | Harmless   | FALSE    |
-| Method    | TRUE   | TRUE           | reserveBook(): void                      | Identified from R2             | Valid(Partially)      | TRUE     |
+| Method    | FALSE   | TRUE           | viewBookCovers(): List<String>                     | Identified from R2             | Extra Harmless   | FALSE    |
+| Method    | TRUE   | TRUE           | reserveBook(): Book                      | Identified from R2             | Partially Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | viewLoans(): List<Loan>                            | Identified from R4             | Valid      | FALSE    |
 | Method    | TRUE   | TRUE           | login(username: String, password: String): boolean | Suggested                      | Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | cancelReservation(bookId: String): void            | Suggested                      | Valid      | TRUE     |
@@ -261,8 +261,8 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Attribute | TRUE   | TRUE           | dueDate: Date                                      | Identified from R4             | Valid      | TRUE     |
 | Attribute | TRUE   | TRUE           | returnDate: Date                                   | Identified from R6             | Valid      | TRUE     |
 | Attribute | TRUE   | TRUE           | fine: float                                        | Identified from R6             | Valid      | TRUE     |
-| Method    | FALSE  | TRUE           | renewLoan(loanId: int): boolean                    | Identified from R4             | Valid      | FALSE    |
-| Method    | TRUE   | TRUE           | calculateFine(currentDate: Date): int            | Identified from R6             | Valid(Partially)      | TRUE     |
+| Method    | FALSE  | TRUE           | renewLoan(loanId: int): boolean                    | Identified from R4             | Extra Valid      | FALSE    |
+| Method    | TRUE   | TRUE           | calculateFine(currentDate: Date): int            | Identified from R6             | Partially Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | isOverdue(currentDate: Date): boolean              | Suggested                      | Valid      | TRUE     |
 | Class     | TRUE   | TRUE           | Librarian                                          | Identified from R7             | Valid      | TRUE     |
 | Attribute | TRUE   | TRUE           | employeeId: int                                    | Suggested                      | Valid      | TRUE     |
@@ -270,7 +270,7 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Method    | TRUE   | TRUE           | addBook(book: Book): void                          | Identified from R7             | Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | updateBook(book: Book): void                       | Identified from R7             | Valid      | TRUE     |
 | Method    | TRUE   | TRUE           | removeBook(book: Book): void                       | Identified from R7             | Valid      | TRUE     |
-| Method    | FALSE  | TRUE           | overrideLoanLimit(userId: int): void               | Suggested                      | Harmful    | FALSE    |
+| Method    | FALSE  | TRUE           | overrideLoanLimit(userId: int): void               | Suggested                      | Extra Harmful    | FALSE    |
 | Method    | TRUE   | TRUE           | viewAllLoans(): List<Loan>                         | Suggested                      | Valid      | FALSE    |
 | Class     | TRUE   | FALSE          | Admin                                              | Not Identified & Not Suggested | Valid      | TRUE     |
 | Attribute | TRUE   | FALSE          | adminId: int                                       | Not Identified & Not Suggested | Valid      | TRUE     |
@@ -303,9 +303,9 @@ This report presents the detailed performance evaluation of a UML class diagram 
 | Relation  | TRUE   | TRUE           | Librarian --> User : verifies >                    | Suggested                      | Valid      | TRUE     |
 | Relation  | TRUE   | TRUE           | User <|-- Librarian                                | Identified from R8             | Valid      | TRUE     |
 | Relation  | TRUE   | FALSE          | User <|-- Admin                                     | Not Identified & Not Suggested | Valid      | TRUE     |
-| Relation  | FALSE  | TRUE           | Librarian --> NotificationService : notifies       | Identified from R4             | Valid      | FALSE    |
-| Relation  | FALSE  | TRUE           | Admin --> NotificationService : oversees           | Identified from R4             | Harmless   | FALSE    |
-| Relation  | FALSE  | TRUE           | Loan --> Report : generates                        | Suggested                      | Harmful    | FALSE    |
+| Relation  | FALSE  | TRUE           | Librarian --> NotificationService : notifies       | Identified from R4             | Extra Valid      | FALSE    |
+| Relation  | FALSE  | TRUE           | Admin --> NotificationService : oversees           | Identified from R4             | Extra Harmless   | FALSE    |
+| Relation  | FALSE  | TRUE           | Loan --> Report : generates                        | Suggested                      | Extra Harmful    | FALSE    |
 
 
 ---
