@@ -125,6 +125,13 @@ User <|-- Admin
 
 ---
 
+## 🧠 Extracted Context
+```
+Entities: book, author, isbn, email, date, catalog, authentication, role, access, borrowing, cloud, server
+Verbs: allow, search, view, display, add, remove, <PAD>, <PAD>, <PAD>, <PAD>, <PAD>, <PAD>
+```
+
+---
 ## 🧠 Extracted Entities and Relations
 
 ### 🔄 Requirement-wise UML Mapping
