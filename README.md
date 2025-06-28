@@ -137,19 +137,19 @@ Verbs: allow, search, view, display, add, remove, <PAD>, <PAD>, <PAD>, <PAD>, <P
 ### 🔄 Requirement-wise UML Mapping
 
 ```
-R1: Classes added: User, Book 
+R1: Classes identified: User, Book 
     Book.attributes = [isbn, title, author, genre]
     User.methods = [searchBooks(String): List<Book>]
     User.attributes = [id]
 
-R2: No new classes
+R2: No new classes identified
     User.methods += [viewBookCovers(): List, reserveBook(Book): Book]
 
-R3: Add class NotificationService
+R3: Identify class NotificationService
     NotificationService.methods = [sendEmail(User, String): void]
     User --> NotificationService [uses]
 
-R4: Add class Loan
+R4: Identify class Loan
     Loan.attributes += [dueDate]
     User.attributes += [dashboard]
     User.methods += [viewLoans(): List<Loan>]
@@ -157,29 +157,29 @@ R4: Add class Loan
     User -- Loan [has]
     Librarian --> NotificationService [notifies]
 
-R5: No new classes
+R5: No new classes identified
     User.attributes += [maxLoans]
 
 R6: Extend Loan class
     Loan.attributes += [returnDate, fine]
     Loan.methods += [calculateFine(Date): float]
 
-R7: Add class Librarian
+R7: Identify class Librarian
     Librarian.methods = [addBook(Book), updateBook(Book), removeBook(Book)]
     Librarian -- Book [manages]
 
-R8: Add class AuthenticationService
+R8: Identify class AuthenticationService
     User.attributes += [role, userFingerprint]
     AuthenticationService.methods = [authenticate(String, String): boolean]
     User --> AuthenticationService [authenticates]
     User <|-- Librarian
 
-R9: Add class Report
+R9: Identify class Report
     Report.attributes += [month, borrowingTrends, overdueItems]
     Admin --> Report [generates]
 
 
-R10: Add class BackupService
+R10: Identify class BackupService
     BackupService.methods = [backupData(): void]
 
 ```
